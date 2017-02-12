@@ -1,12 +1,19 @@
-import { default as React, Component } from 'react';
+import * as React from 'react';
 import { render } from 'react-dom';
+import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
-class Index extends Component<{},{}> {
-    render(){
-        return(
-            <h1>Ciao</h1>
+import { Navbar } from './components/navbar';
+
+class Index extends React.Component<{}, {}> {
+    render() {
+        return (
+            <Router history={browserHistory}>
+                <Route path="/" component={Navbar}>
+
+                </Route>
+            </Router>
         );
     }
 }
 
-render(<Index/>, document.getElementById("root"));
+render(<Index />, document.getElementById("root"));

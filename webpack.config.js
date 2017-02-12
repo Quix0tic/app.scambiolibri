@@ -5,20 +5,20 @@ module.exports = {
     entry: "./src/index.tsx",
     output: {
         filename: "bundle.js",
-        path: path.resolve(__dirname, "/dist")
+        path: path.join(__dirname, "/dist")
     },
 
     // Enable sourcemaps for debugging webpack's output.
     devtool: "source-map",
     plugins: [
         new webpack.optimize.UglifyJsPlugin({
-            sourceMap: options.devtool && (options.devtool.indexOf("sourcemap") >= 0 || options.devtool.indexOf("source-map") >= 0)
+            sourceMap: true
         })
     ],
 
     resolve: {
         // Add '.ts' and '.tsx' as resolvable extensions.
-        extensions: ["", ".webpack.js", ".web.js", ".ts", ".tsx", ".js"],
+        extensions: [".webpack.js", ".web.js", ".ts", ".tsx", ".js"],
         alias: {
             "react": "preact-compat",
             "react-dom": "preact-compat"
@@ -34,7 +34,7 @@ module.exports = {
             },
             {
                 test: /\.js$/,
-                enforce: "pre"
+                enforce: "pre",
                 loader: "source-map-loader"
             }
         ]
