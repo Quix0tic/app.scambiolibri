@@ -19,7 +19,7 @@ class Component extends React.Component<Props, {}>{
             <Card shadow={3} style={{ marginTop: 60, marginLeft: "auto", marginRight: "auto" }}>
                 <CardTitle style={{ color: "#fff", backgroundColor: "#3f51b5" }}>Please login</CardTitle>
                 <CardText>
-                    <form action="#" onSubmit={(e) => { }}>
+                    <form action="#" onSubmit={(e) => { this.props.handleSubmit }}>
                         <Textfield
                             floatingLabel
                             required
@@ -40,6 +40,7 @@ class Component extends React.Component<Props, {}>{
                         <button
                             className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored"
                             type="submit"
+                            onClick={(e) => this.props.handleSubmit.bind(e)}
                             value="Login">
                             Log in</button>
                     </form>

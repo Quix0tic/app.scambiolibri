@@ -45,7 +45,9 @@ export interface LOGOUT_REQUEST {
 }
 export interface ANNOUNCEMENTS_REQUEST {
     type: "ANNOUNCEMENTS" | "ANNOUNCEMENTS_PENDING" | "ANNOUNCEMENTS_REJECTED" | "ANNOUNCEMENTS_FULFILLED";
-    payload: AxiosPromise;
+    data: any;
+    reqStatus: number;
+    error: any;
 }
 
 export type AppActions = LOGIN_REQUEST | LOGOUT_REQUEST | ANNOUNCEMENTS_REQUEST;
