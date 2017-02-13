@@ -53,10 +53,14 @@ function handleApiResponse<T>(reqStatus: number, reqData: any, state: AppState, 
 export function announcementReducer(state = initialState, action: AppActions): AppState {
     switch (action.type) {
         case "ANNOUNCEMENTS_PENDING":
+
+            console.log("ANNOUNCEMENTS_PENDING");
             break;
         case "ANNOUNCEMENTS_FULFILLED":
+            console.log("ANNOUNCEMENTS_FULFILLED");
             break;
         case "ANNOUNCEMENTS_REJECTED":
+            console.log("ANNOUNCEMENTS_REJECTED");
             break;
     }
     return state;
