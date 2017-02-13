@@ -1,14 +1,13 @@
 import * as React from 'react';
-import { Card, CardTitle, CardText, Textfield } from 'react-mdl';
+import { Card, CardTitle, CardText, Textfield, Spinner } from 'react-mdl';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { AppState } from '../redux_types';
-import { getAnnouncements } from '../api_wrapper';
+import { login } from '../api_wrapper';
 
 interface Props {
     handleSubmit: (e: Event) => any;
     logged: boolean;
-    router: any;
     logError: string;
     loginInProgress: boolean;
 }
@@ -19,7 +18,9 @@ class Component extends React.Component<Props, {}>{
             <Card shadow={3} style={{ marginTop: 60, marginLeft: "auto", marginRight: "auto" }}>
                 <CardTitle style={{ color: "#fff", backgroundColor: "#3f51b5" }}>Please login</CardTitle>
                 <CardText>
-                    <form action="#" onSubmit={(e) => { this.props.handleSubmit }}>
+                    {this.props.loginInProgress ? <Spinner /> : null}
+
+                    <form action="#" onSubmit={(e) => { this.props.handleSubmit.bind(this) }}>
                         <Textfield
                             floatingLabel
                             required
@@ -40,7 +41,6 @@ class Component extends React.Component<Props, {}>{
                         <button
                             className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored"
                             type="submit"
-                            onClick={(e) => this.props.handleSubmit.bind(e)}
                             value="Login">
                             Log in</button>
                     </form>
@@ -53,7 +53,9 @@ class Component extends React.Component<Props, {}>{
 function mapDispatchToProps(dispatch: any) {
     return {
         handleSubmit: function (e: Event) {
-            dispatch(getAnnouncements());
+            console.log("submit");
+            e.preventDefault();
+            dispatch(login((document.getElementById("username") as HTMLInputElement).value, (document.getElementById("password") as HTMLInputElement).value));
         }
     };
 }
