@@ -6,7 +6,7 @@ import { AppState } from '../redux_types';
 import { login } from '../api_wrapper';
 
 interface Props {
-    handleSubmit: (e: Event) => any;
+    handleSubmit: (e: Event) => void;
     logged: boolean;
     logError: string;
     loginInProgress: boolean;
@@ -52,7 +52,7 @@ class Component extends React.Component<Props, {}>{
 
 function mapDispatchToProps(dispatch: any) {
     return {
-        handleSubmit: function (e: Event) {
+        handleSubmit: (e: Event) => {
             console.log("submit");
             e.preventDefault();
             dispatch(login((document.getElementById("username") as HTMLInputElement).value, (document.getElementById("password") as HTMLInputElement).value));
