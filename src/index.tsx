@@ -5,10 +5,12 @@ import { Provider } from 'react-redux';
 import { combineReducers } from 'redux';
 import { Navbar } from './components/navbar';
 import { Login } from './components/login';
-
 import { storeFactory, announcementReducer } from './redux_store';
 
 var store = storeFactory(announcementReducer);
+store.subscribe(() => {
+    console.log("store changed", store.getState())
+})
 
 class Index extends React.Component<{}, {}> {
     render() {

@@ -38,7 +38,7 @@ export type AppState = {
 }
 
 export interface LOGIN_REQUEST {
-    type: "LOGIN";
+    type: "LOGIN" | "LOGIN_PENDING" | "LOGIN_REJECTED" | "LOGIN_FULFILLED";
 }
 export interface LOGOUT_REQUEST {
     type: "LOGIN";

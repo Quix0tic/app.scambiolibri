@@ -62,6 +62,12 @@ export function announcementReducer(state = initialState, action: AppActions): A
         case "ANNOUNCEMENTS_REJECTED":
             console.log("ANNOUNCEMENTS_REJECTED");
             break;
+        case "LOGIN_PENDING":
+            break;
+        case "LOGIN_FULFILLED":
+            break;
+        case "LOGIN_REJECTED":
+            break;
     }
     return state;
 }
