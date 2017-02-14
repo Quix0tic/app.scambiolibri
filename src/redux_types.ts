@@ -37,11 +37,24 @@ export type AppState = {
     myAnnouncements: ApiCall<Array<Announcement>>
 }
 
+export interface REMEMBER_LOGIN{
+    type: "REMEMBER_LOGIN";
+    logged: boolean;
+}
+
 export interface LOGIN_REQUEST {
     type: "LOGIN" | "LOGIN_PENDING" | "LOGIN_REJECTED" | "LOGIN_FULFILLED";
+
+    error: boolean;
+    message: string;
+
+    name: string;
+    city: string;
+    updatedAt: Date;
+    createdAt: Date;
 }
 export interface LOGOUT_REQUEST {
-    type: "LOGIN";
+    type: "LOGOUT";
 }
 export interface ANNOUNCEMENTS_REQUEST {
     type: "ANNOUNCEMENTS" | "ANNOUNCEMENTS_PENDING" | "ANNOUNCEMENTS_REJECTED" | "ANNOUNCEMENTS_FULFILLED";
@@ -50,4 +63,4 @@ export interface ANNOUNCEMENTS_REQUEST {
     error: any;
 }
 
-export type AppActions = LOGIN_REQUEST | LOGOUT_REQUEST | ANNOUNCEMENTS_REQUEST;
+export type AppActions = LOGIN_REQUEST | LOGOUT_REQUEST | ANNOUNCEMENTS_REQUEST | REMEMBER_LOGIN;

@@ -14,4 +14,3 @@ if (typeof localStorage === "object") {
 }
 export const AppStorage = window.localStorage;
 export const LOGGED_KEY = "logged";
-export const PHONE_KEY = "phone";

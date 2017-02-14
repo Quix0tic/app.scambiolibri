@@ -1,12 +1,13 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { default as promiseMiddleware } from 'redux-promise-middleware';
 import { default as thunk } from 'redux-thunk';
+import createLogger = require('redux-logger');
 
-import { AppStorage, LOGGED_KEY, PHONE_KEY } from "./app_storage";
+import { AppStorage, LOGGED_KEY } from "./app_storage";
 import { AppState, AppActions, Announcement } from './redux_types';
 
 const initialState: AppState = {
-    phone: AppStorage.getItem(PHONE_KEY),
+    phone: null,
     logged: false,
     loginInProgress: false,
     logError: "",
@@ -24,13 +25,7 @@ const initialState: AppState = {
 
 type Reducer = (state: AppState, action: AppActions) => AppState;
 
-const middleware = applyMiddleware(thunk, promiseMiddleware());
-
-/*combineReducers({
-    announcements: announcementReducer,
-    myAnnouncements: announcementReducer,
-    reducer
-})*/
+const middleware = applyMiddleware(thunk, promiseMiddleware(), (createLogger as any)());
 
 export function storeFactory(reducer: Reducer) {
     return createStore<AppState>(reducer, middleware);
@@ -53,21 +48,24 @@ function handleApiResponse<T>(reqStatus: number, reqData: any, state: AppState, 
 export function announcementReducer(state = initialState, action: AppActions): AppState {
     switch (action.type) {
         case "ANNOUNCEMENTS_PENDING":
-
-            console.log("ANNOUNCEMENTS_PENDING");
             break;
         case "ANNOUNCEMENTS_FULFILLED":
-            console.log("ANNOUNCEMENTS_FULFILLED");
             break;
         case "ANNOUNCEMENTS_REJECTED":
-            console.log("ANNOUNCEMENTS_REJECTED");
             break;
+        case "LOGOUT":
+            AppStorage.setItem(LOGGED_KEY, "false");
+            return { ...state, logged: false };
         case "LOGIN_PENDING":
-            break;
+            return { ...state, loginInProgress: true }
         case "LOGIN_FULFILLED":
-            break;
+            AppStorage.setItem(LOGGED_KEY, action.error ? "false" : "true");
+            return { ...state, loginInProgress: false, logged: !action.error }
         case "LOGIN_REJECTED":
-            break;
+            AppStorage.setItem(LOGGED_KEY, action.error ? "false" : "true");
+            return { ...state, loginInProgress: false, logged: false, logError: action.message }
+        case "REMEMBER_LOGIN":
+            return { ...state, logged: action.logged }
     }
     return state;
 }

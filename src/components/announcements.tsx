@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { Card, CardTitle, CardText, Textfield } from 'react-mdl';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
 import { AppState } from '../redux_types';
 import { getAnnouncements } from '../api_wrapper';
 import * as types from '../redux_types';
 import { BasicRoute } from './BasicRouteHOC';
+import { withRouter } from 'react-router';
 
 interface Props {
     onLoad: () => void;
@@ -44,4 +44,4 @@ function mapStateToProps(state: AppState): any {
         logged: state.logged
     };
 };
-export const Announcements = connect(mapStateToProps, mapDispatchToProps)(BasicRoute(Component));
+export const Announcements = connect(mapStateToProps, mapDispatchToProps)(withRouter(Component));
