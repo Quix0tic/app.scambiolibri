@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { render } from 'react-dom';
-import { Router, Route, IndexRoute, hashHistory, Redirect } from 'react-router';
+import { Router, Route, IndexRoute, browserHistory, Redirect } from 'react-router';
 import { Provider } from 'react-redux';
 import { combineReducers } from 'redux';
 
@@ -49,7 +49,7 @@ class Index extends React.Component<{}, {}> {
     render() {
         return (
             <Provider store={store}>
-                <Router history={hashHistory}>
+                <Router history={browserHistory}>
                     <Route path="/" component={Navbar}>
                         <IndexRoute component={Announcements} onEnter={checkAuth} />
                         <Route path="logout" onEnter={logout} />
