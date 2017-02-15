@@ -53,6 +53,18 @@ export function announcementReducer(state = initialState, action: any): AppState
             return handleApiResponse(action.payload.status, action.payload.data, state, "announcements")
         case "ANNOUNCEMENTS_REJECTED":
             return handleApiResponse(action.payload.status, action.payload.data, state, "announcements")
+        case "MY_ANNOUNCEMENS_PENDING":
+            return {
+                ...state, myAnnouncements: {
+                    reqInProgress: true,
+                    reqError: "",
+                    data: null
+                }
+            }
+        case "MY_ANNOUNCEMENS_FULFILLED":
+            return handleApiResponse(action.payload.status, action.payload.data, state, "myAnnouncements")
+        case "MY_ANNOUNCEMENS_REJECTED":
+            return handleApiResponse(action.payload.status, action.payload.data, state, "myAnnouncements")
         case "LOGOUT":
             AppStorage.setItem(LOGGED_KEY, "false");
             return { ...state, logged: false };

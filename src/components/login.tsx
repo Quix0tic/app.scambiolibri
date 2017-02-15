@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Card, CardTitle, CardText, Textfield, Spinner } from 'react-mdl';
+import { Card, CardTitle, CardText, Textfield, ProgressBar, Button } from 'react-mdl';
 import { connect } from 'react-redux';
 import { withRouter, hashHistory } from 'react-router';
 import { AppState } from '../redux_types';
@@ -23,7 +23,8 @@ class Component extends React.Component<Props, {}>{
             <Card shadow={3} style={{ marginTop: 60, marginLeft: "auto", marginRight: "auto" }}>
                 <CardTitle style={{ color: "#fff", backgroundColor: "#3f51b5" }}>Please login</CardTitle>
                 <CardText>
-                    {this.props.loginInProgress ? <Spinner /> : null}
+                    {this.props.loginInProgress ? <ProgressBar indeterminate />
+                        : null}
                     <form action="#" onSubmit={(e) => { this.props.handleSubmit(e) }}>
                         <Textfield
                             floatingLabel
@@ -42,11 +43,7 @@ class Component extends React.Component<Props, {}>{
                             type="password"
                             id="password"
                         />
-                        <button
-                            className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored"
-                            type="submit"
-                            value="Login">
-                            Log in</button>
+                        <Button raised colored ripple value="login" type="submit">Log in</Button>
                     </form>
                 </CardText>
             </Card >
