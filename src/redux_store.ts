@@ -30,15 +30,9 @@ const middleware = applyMiddleware(thunk, promiseMiddleware(), (createLogger as 
 export function storeFactory(reducer: Reducer) {
     return createStore<AppState>(reducer, middleware);
 }
-function handleApiResponse<T>(reqStatus: number, reqData: any, state: AppState, fieldToUpdate: string) {
+function handleApiResponse(reqStatus: number, reqData: any, state: AppState, fieldToUpdate: string) {
     if (reqStatus === 200) {
-        let parsedData: T;
-        try {
-            parsedData = JSON.parse(reqData);
-        } catch (e) {
-            return { ...state, [fieldToUpdate]: { reqInProgress: false, reqError: "Error parsing data" } };
-        }
-        return { ...state, [fieldToUpdate]: { reqInProgress: false, reqError: "" } };
+        return { ...state, [fieldToUpdate]: { reqInProgress: false, reqError: "", data: reqData } };
     } else if (reqStatus === 403) {
         return { ...state, [fieldToUpdate]: { reqInProgress: false, reqError: "You need to login again" }, logged: false };
     } else {
@@ -56,21 +50,9 @@ export function announcementReducer(state = initialState, action: any): AppState
                 }
             }
         case "ANNOUNCEMENTS_FULFILLED":
-            return {
-                ...state, announcements: {
-                    reqInProgress: false,
-                    data: action.payload.data,
-                    reqError: ""
-                }
-            }
+            return handleApiResponse(action.payload.status, action.payload.data, state, "announcements")
         case "ANNOUNCEMENTS_REJECTED":
-            return {
-                ...state, announcements: {
-                    reqInProgress: false,
-                    data: null,
-                    reqError: action.error
-                }
-            }
+            return handleApiResponse(action.payload.status, action.payload.data, state, "announcements")
         case "LOGOUT":
             AppStorage.setItem(LOGGED_KEY, "false");
             return { ...state, logged: false };
