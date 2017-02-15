@@ -18,7 +18,7 @@ const component = function (props: Props) {
                         <a className="mdl-navigation__link" href="">Link</a>
                         <a className="mdl-navigation__link" href="">Link</a>
                         <a className="mdl-navigation__link" href="">Link</a>
-                        <a className="mdl-navigation__link" href="">Link</a>
+                        <Link className="mdl-navigation__link" to="/logout">Logout</Link>
                     </nav>
                 </div>
             </header>
@@ -28,7 +28,7 @@ const component = function (props: Props) {
                     <a className="mdl-navigation__link" href="">Link</a>
                     <a className="mdl-navigation__link" href="">Link</a>
                     <a className="mdl-navigation__link" href="">Link</a>
-                    <a className="mdl-navigation__link" href="">Link</a>
+                    <Link className="mdl-navigation__link" to="/logout">Logout</Link>
                 </nav>
             </div>
             <main className="mdl-layout__content">

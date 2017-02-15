@@ -45,14 +45,32 @@ function handleApiResponse<T>(reqStatus: number, reqData: any, state: AppState, 
         return { ...state, [fieldToUpdate]: { reqInProgress: false, reqError: "Error fetching data" } };
     }
 }
-export function announcementReducer(state = initialState, action: AppActions): AppState {
+export function announcementReducer(state = initialState, action: any): AppState {
     switch (action.type) {
         case "ANNOUNCEMENTS_PENDING":
-            break;
+            return {
+                ...state, announcements: {
+                    reqInProgress: true,
+                    data: null,
+                    reqError: ""
+                }
+            }
         case "ANNOUNCEMENTS_FULFILLED":
-            break;
+            return {
+                ...state, announcements: {
+                    reqInProgress: false,
+                    data: action.payload.data,
+                    reqError: ""
+                }
+            }
         case "ANNOUNCEMENTS_REJECTED":
-            break;
+            return {
+                ...state, announcements: {
+                    reqInProgress: false,
+                    data: null,
+                    reqError: action.error
+                }
+            }
         case "LOGOUT":
             AppStorage.setItem(LOGGED_KEY, "false");
             return { ...state, logged: false };
