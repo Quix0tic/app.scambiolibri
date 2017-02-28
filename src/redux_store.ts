@@ -24,7 +24,6 @@ const initialState: AppState = {
 }
 
 type Reducer = (state: AppState, action: AppActions) => AppState;
-
 const middleware = applyMiddleware(thunk, promiseMiddleware(), (createLogger as any)());
 
 export function storeFactory(reducer: Reducer) {

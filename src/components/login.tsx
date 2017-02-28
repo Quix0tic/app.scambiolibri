@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Card, CardTitle, CardText, Textfield, ProgressBar, Button } from 'react-mdl';
 import { connect } from 'react-redux';
-import { withRouter, hashHistory } from 'react-router';
+import { withRouter, browserHistory } from 'react-router';
 import { AppState } from '../redux_types';
 import { login } from '../api_wrapper';
 
@@ -15,7 +15,7 @@ interface Props {
 class Component extends React.Component<Props, {}>{
     componentWillUpdate(nextProps: Props, nextState: Object) {
         if (nextProps.logged) {
-            hashHistory.push("/");
+            browserHistory.replace("/");
         }
     }
     render() {
@@ -25,7 +25,7 @@ class Component extends React.Component<Props, {}>{
                 <CardText>
                     {this.props.loginInProgress ? <ProgressBar indeterminate />
                         : null}
-                    <form action="#" onSubmit={(e) => { this.props.handleSubmit(e) }}>
+                    <form action="" onSubmit={(e) => { this.props.handleSubmit(e) }}>
                         <Textfield
                             floatingLabel
                             required
